@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shreyansh Pathak - Academic Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.0.3/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 0.5rem;
+        }
+        nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+        }
+        nav a:hover {
+            background-color: #2c3e50;
+        }
+        main {
+            background-color: #fff;
+            padding: 2rem;
+            margin-top: 1rem;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .project, .blog-post {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+        #blog-content {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Shreyansh Pathak</h1>
+        <p>MTech-PhD AI Student</p>
+    </header>
+    
+    <nav>
+        <a href="#" onclick="showSection('about')">About</a>
+        <a href="#" onclick="showSection('education')">Education</a>
+        <a href="#" onclick="showSection('projects')">Projects</a>
+        <a href="#" onclick="showSection('blogs')">Blogs</a>
+    </nav>
+    
+    <main id="main-content">
+        
+    </main>
+
+    <script>
+        const content = {
+            about: `
+                <h2>About Me</h2>
+                <p>A dedicated programmer currently undertaking MTech-PhD AI program at IIT Jodhpur. Proficient in developing Transformer architectures for modern LLMs, backed by a robust skillset in Deep Learning. Experienced in crafting web applications utilizing the Flask framework.</p>
+            `,
+            education: `
+                <h2>Education</h2>
+                <ul>
+                    <li>IIT Jodhpur - MTech-PhD in AI | (2024 - Present) </li>
+                    <li>KNIT Sultanpur - B.Tech in Computer Science and Engineering | (2020 – 2024)</li>
+                    <li>IIT Madras - Dual Diploma in Data Science and Applications | (2021 – 2024)</li>
+                </ul>
+            `,
+            projects: `
+                <h2>Projects</h2>
+                <div class="project">
+                    <h3>Transformers for LLMs</h3>
+                    <p>Implemented advanced Transformer components from scratch, including Einops, Multi-head Causal Attention, Multi-head Cross Attention, Multi-head Grouped Query Attention, Rotary Position Embedding (RoPE), and Low-Rank Adaptation (LoRA).</p>
+                </div>
+                <div class="project">
+                    <h3>Neural Engine</h3>
+                    <p>Developed a Scalar Class for arithmetic operations and activation functions. Built a Multi Layered Neural Network from scratch without using external tensor-based modules.</p>
+                </div>
+            `,
+            blogs: `
+                <h2>Blog Posts</h2>
+                <div class="blog-post">
+                    <h3><a href="#" onclick="loadBlog('blog1.md')">Understanding Transformer Architectures</a></h3>
+                    <p>An in-depth look at the components of modern Transformer models.</p>
+                </div>
+                <div class="blog-post">
+                    <h3><a href="#" onclick="loadBlog('blog2.md')">Building Neural Networks from Scratch</a></h3>
+                    <p>A step-by-step guide to implementing a neural network using only NumPy.</p>
+                </div>
+                <div id="blog-content"></div>
+            `
+        };
+
+        function showSection(section) {
+            document.getElementById('main-content').innerHTML = content[section];
+        }
+
+        function loadBlog(blogFile) {
+            fetch(blogFile)
+                .then(response => response.text())
+                .then(text => {
+                    const blogContent = marked(text);
+                    document.getElementById('blog-content').innerHTML = blogContent;
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, "blog-content"]);
+                })
+                .catch(err => console.error(err));
+        }
+
+        
+        showSection('about');
+    </script>
+</body>
+</html>
